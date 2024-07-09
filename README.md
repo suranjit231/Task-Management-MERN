@@ -28,7 +28,7 @@ This is a Task Management application that allows users to manage their tasks ef
 1. Clone the GitHub repository:
 
    ```bash
-   git clone https://github.com/suranjit123/task-management.git
+   git clone https://github.com/suranjit231/task-management-MERN.git
 
 2. Navigate to the backend directory:
 - **cd backend**
