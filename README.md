@@ -8,7 +8,6 @@ This is a Task Management application that allows users to manage their tasks ef
 
 - **User Authentication**: Users can sign up, sign in, and sign out.
 - **Task Management**: Users can create, view, update, and delete tasks.
-- **User Roles**: There are two types of users - regular users and admin users.
 - **Search and Filter**: Users can search for tasks.
 
 ### User Authentication
@@ -29,7 +28,7 @@ This is a Task Management application that allows users to manage their tasks ef
 1. Clone the GitHub repository:
 
    ```bash
-   git clone https://github.com/yourusername/task-management.git
+   git clone https://github.com/suranjit123/task-management.git
 
 2. Navigate to the backend directory:
 - **cd backend**

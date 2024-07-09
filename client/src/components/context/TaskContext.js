@@ -116,31 +116,40 @@ export default function TaskContextComponent(props){
         }
     }
 
-    //====== get all pending task =====//
-   async function getAllPendingTask(){
-        try{
-            const response = await getAllPendingTaskApiCall();
-            setTaskList(response.tasks);
 
-        }catch(error){
-            toast.error(error.response.data)
+//====== get all pending task =====//
+async function getAllPendingTask(){
+    try{
+        const response = await getAllPendingTaskApiCall();
+        if (!response.success) {
+            setTaskList([]);
+            toast.error(response.msg);
+        } else {
+            setTaskList(response.tasks);
         }
-        
+    } catch (error) {
+        toast.error(error.response.data || "An error occurred while fetching pending tasks.");
     }
+}
+
 
 
     //====== search a task by title ========//
-    async function searchTaskByTitle(searchText){
-        try{
-            const response = await searchTaskApiCall(searchText);
-            if(response){
-                setTaskList(response.tasks);
-            }
-
-        }catch(error){
-            toast.error(error.response.data);
+async function searchTaskByTitle(searchText){
+    try{
+        console.log("search text: ", searchText);
+        const response = await searchTaskApiCall(searchText);
+        if (!response.success) {
+            setTaskList([]);
+            toast.error(response.msg);
+        } else {
+            setTaskList(response.tasks);
         }
+    } catch (error) {
+        toast.error(error.response.data || "An error occurred while searching for tasks.");
     }
+}
+
 
 
     const {children} = props;

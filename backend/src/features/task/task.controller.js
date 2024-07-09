@@ -141,22 +141,27 @@ export default class TaskController{
         }
     }
 
+
     //======== view all pending task ==========//
-    async viewAllPendingTask(req,res,next){
-        try{
-            const userId = req.userId;
-            const tasks = await this.taskRepository.viewAllPendingTask(userId);
+async viewAllPendingTask(req, res, next) {
+    try {
+        const userId = req.userId;
+        const tasks = await this.taskRepository.viewAllPendingTask(userId);
 
-            if(!tasks.success){
-                return res.status(404).json(tasks);
-            }else{
-                return res.status(200).json(tasks);
-            }
-
-        }catch(error){
-            res.status(404).json(error);
+        if (!tasks.success) {
+            return res.status(200).json(tasks);
+        } else {
+            return res.status(200).json(tasks);
         }
+    } catch (error) {
+        res.status(500).json({ success: false, msg: "An error occurred while fetching tasks." });
     }
+}
+
+
+
+
+
 
     //========== get all task completed task =========//
     async viewCompletedTask(req,res,next){
@@ -178,24 +183,28 @@ export default class TaskController{
     }
 
 
+
     //========= search a task controller =========//
-    async searchTask(req,res,next){
-        try{
-            const userId = req.userId;
-            const searchText = req.query.q;
+async searchTask(req, res, next) {
+    try {
+        const userId = req.userId;
+        const searchText = req.query.q;
 
-            const tasks = await this.taskRepository.searchTask(userId, searchText);
+        const tasks = await this.taskRepository.searchTask(userId, searchText);
+        console.log("task found in controller: ", tasks);
 
-            if(!tasks.success){
-                return res.status(404).json(tasks);
-            }else{
-                return res.status(200).json(tasks);
-            }
-
-        }catch(error){
-            res.status(404).json(error);
+        if (!tasks.success) {
+            return res.status(200).json(tasks);
+        } else {
+            return res.status(200).json(tasks);
         }
+    } catch (error) {
+        res.status(500).json({ success: false, msg: "An error occurred while searching for tasks." });
     }
+}
+
+
+
 
 
 }

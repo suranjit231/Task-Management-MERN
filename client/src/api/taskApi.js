@@ -86,6 +86,7 @@ export async function getAllCompletedTaskApiCall(){
         const response = await axios.get(`${serverUrl}/api/tasks/completedTask`, {
             withCredentials: true,
         });
+       
         return response.data;
 
     }catch(error){

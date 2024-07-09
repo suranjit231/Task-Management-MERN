@@ -142,29 +142,30 @@ export default class TaskRepository{
         }
     }
 
+   
     //========= view all pending task ==============//
-    async viewAllPendingTask(userId){
-        try{
-            const tasks = await taskModel.find({user:userId, completed:false}).sort({dueDate:1});
-            if(tasks.length < 1){
-                return {success: false, msg: "No pending task found!"};
-            }else {
-                const formattedTasks = tasks.map(task => {
-                    return {
-                        ...task.toObject(),
-                        dueDate: moment(task.dueDate).format('D MMM YYYY')
-                    };
-                });
-                let totalTask = tasks.length;
-                return {success: true, msg: `You have ${totalTask} pending tasks found`, tasks: formattedTasks};
-            }
-
-
-        }catch(error){
-           // console.log("view pending task repository error: ", error);
-            return handleError(error);
+async viewAllPendingTask(userId) {
+    try {
+        const tasks = await taskModel.find({ user: userId, completed: false }).sort({ dueDate: 1 });
+        if (tasks.length < 1) {
+            return { success: false, msg: "No pending tasks found!" };
+        } else {
+            const formattedTasks = tasks.map(task => {
+                return {
+                    ...task.toObject(),
+                    dueDate: moment(task.dueDate).format('D MMM YYYY')
+                };
+            });
+            let totalTask = tasks.length;
+            return { success: true, msg: `You have ${totalTask} pending tasks found`, tasks: formattedTasks };
         }
+    } catch (error) {
+        return { success: false, msg: "An error occurred while fetching tasks." };
     }
+}
+
+
+
 
 
     //======= get all completd task ============//
@@ -190,33 +191,35 @@ export default class TaskRepository{
         }
     }
 
+  
     //======== search task repository ======//
-    async searchTask(userId, searchText){
-        try {
-            const tasks = await taskModel.find({
-                user: userId,
-                $or: [
-                    { title: new RegExp(searchText, 'i') },
-                    { description: new RegExp(searchText, 'i') }
-                ]
-            }).sort({ dueDate: 1 });
+async searchTask(userId, searchText) {
+    try {
+        const tasks = await taskModel.find({
+            user: userId,
+            $or: [
+                { title: new RegExp(searchText, 'i') },
+                { description: new RegExp(searchText, 'i') }
+            ]
+        }).sort({ dueDate: 1 });
 
-            if (tasks.length < 1) {
-                return { success: false, msg: "No task found!" };
-            } else {
-                const formattedTasks = tasks.map(task => {
-                    return {
-                        ...task.toObject(),
-                        dueDate: moment(task.dueDate).format('D MMM YYYY')
-                    };
-                });
-                let totalTask = tasks.length;
-                return { success: true, msg: `You have ${totalTask} tasks found`, tasks: formattedTasks };
-            }
-        } catch (error) {
-            return handleError(error);
+        if (tasks.length < 1) {
+            return { success: false, msg: "No tasks found!" };
+        } else {
+            const formattedTasks = tasks.map(task => {
+                return {
+                    ...task.toObject(),
+                    dueDate: moment(task.dueDate).format('D MMM YYYY')
+                };
+            });
+            let totalTask = tasks.length;
+            return { success: true, msg: `You have ${totalTask} tasks found`, tasks: formattedTasks };
         }
+    } catch (error) {
+        return { success: false, msg: "An error occurred while searching for tasks." };
     }
+}
+
 
 
 
